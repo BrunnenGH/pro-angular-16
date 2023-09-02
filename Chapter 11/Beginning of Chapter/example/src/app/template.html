@@ -1,4 +1,96 @@
-<div class="bg-info text-white p-2">
+<h2>[ngClass]="expression"</h2>
+<div [ngClass]="'text-white p2 ' + classes()">
     Hello, World
-  </div>
-  
+</div>
+
+<div [ngClass]="'text-white p2 ' + classes()" [textContent]="'Přímo nastavím [textContent], zde jako expression'" ></div>
+
+<!--Jako atribut to nastavit nejde.-->
+<!--<div [ngClass]="'text-white p2 ' + classes()" textContent="'Přímo nastavím [textContent], zde jako literal'" ></div>-->
+
+<div [ngClass]="'text-white p2 ' + classes()" >{{ 'jako string interpolation, ' + 1 }}</div>
+
+<hr>
+<h2>Element property versus element attribute</h2>
+<div class="form-group m-2">
+    <label>Name:</label>
+    <input class="form-control" [value]="products()[1].name" />
+</div>
+
+<div class="form-group m-2">
+    <label>A nyní staticky:</label>
+    <input class="form-control" value="products()[1].name" />
+</div>
+
+<hr>
+<h2>[attr.name]="expression"</h2>
+<table class="table mt-2">
+    <tr>
+        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+    </tr>
+    <tr>
+        <td [attr.colspan]="count()" style="background-color: #0dcaf0">
+            {{ products()[1].name}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="background-color: greenyellow">
+            {{ products()[2].name}}
+        </td>
+    </tr>
+</table>
+
+<hr>
+<h2>[class]="expression"</h2>
+<div class="text-white">
+    <div class="kuk" [class]="getClasses(0)">
+        (+kuk) The first product is {{ products()[0].name }}
+    </div>
+    <div [class]="getClasses(1)">
+        The second product is {{ products()[1].name }}
+    </div>
+</div>
+
+<hr>
+<h2>[ngClass] s mapou</h2>
+<div class="text-white">
+    <div class="text-white">
+        <div class="p-2" [ngClass]="getClassMap(0)">
+            The first product is {{ products()[0].name }}
+        </div>
+        <div class="p-2" [ngClass]="getClassMap(1)">
+            The second product is {{ products()[1].name }}
+        </div>
+        <div class="p-2"
+             [ngClass]="{'bg-success': (products()[2].price ?? 0) < 50,
+            'bg-info': (products()[2].price ?? 0) >= 50}">
+            The third product is {{products()[2].name}}
+        </div>
+    </div>
+</div>
+
+<hr>
+<h2>[style.myStyle] a [style.myStyle.px]</h2>
+<div class="text-white">
+    <div class="p-2 bg-warning">
+        The <span [style.fontSize]="fontSizeWithUnits">first</span>
+        product is {{products()[0].name}}
+    </div>
+    <div class="p-2 bg-info">
+        The <span [style.fontSize.px]="fontSizeWithoutUnits">second</span>
+        product is {{products()[1].name}}
+    </div>
+</div>
+
+<hr>
+<h2>[ngStyle]="mapa"</h2>
+<div class="text-white">
+    <div class="p-2 bg-warning">
+        The <span [ngStyle]="getStyles(0)">first</span>
+        product is {{products()[0].name}}
+    </div>
+    <div class="p-2 bg-info">
+        The <span [ngStyle]="getStyles(1)">second</span>
+        product is {{products()[1].name}}
+    </div>
+</div>
